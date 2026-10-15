@@ -9,7 +9,22 @@ def encrypt_vigenere(plaintext: str, keyword: str) -> str:
     'LXFOPVEFRNHR'
     """
     ciphertext = ""
-    # PUT YOUR CODE HERE
+    key = key * (len(plaintext) // len(key)) + key[:len(plaintext) % len(key)]
+    for i in range(len(plaintext)):
+        if plaintext[i].isalpha():
+            if plaintext[i].isupper():
+                key_upd = key[i].upper()
+                shift_start = ord("A")
+                shift = ord(key_upd) - shift_start
+                encrypted_symbol = chr((ord(plaintext[i]) - shift_start + shift) % 26 + shift_start)
+                ciphertext += encrypted_symbol
+            else:
+                key_upd = key[i].lower()
+                shift_start = ord("a")
+                shift = ord(key_upd) - shift_start
+                encrypted_symbol = chr((ord(plaintext[i]) - shift_start + shift) % 26 + shift_start)
+                ciphertext += encrypted_symbol
+        else: ciphertext += plaintext[i]
     return ciphertext
 
 
@@ -24,5 +39,20 @@ def decrypt_vigenere(ciphertext: str, keyword: str) -> str:
     'ATTACKATDAWN'
     """
     plaintext = ""
-    # PUT YOUR CODE HERE
+    key = key * (len(ciphertext) // len(key)) + key[:len(ciphertext) % len(key)]
+    for i in range(len(ciphertext)):
+        if ciphertext[i].isalpha():
+            if ciphertext[i].isupper():
+                key_upd = key[i].upper()
+                shift_start = ord("A")
+                shift = ord(key_upd) - shift_start
+                decrypted_symbol = chr((ord(ciphertext[i]) - shift_start - shift) % 26 + shift_start)
+                plaintext += decrypted_symbol
+            else:
+                key_upd = key[i].lower()
+                shift_start = ord("a")
+                shift = ord(key_upd) - shift_start
+                decrypted_symbol = chr((ord(ciphertext[i]) - shift_start - shift) % 26 + shift_start)
+                plaintext += decrypted_symbol
+        else: plaintext += ciphertext[i]
     return plaintext
