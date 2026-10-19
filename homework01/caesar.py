@@ -34,10 +34,9 @@ def decrypt_caesar(ciphertext: str, shift: int = 3) -> str:
     """
     plaintext = ""
     for symbol in ciphertext:
-        for symbol in ciphertext:
-            if symbol.isalpha():
-                shift_start = ord("A") if symbol.isupper() else ord("a")
-                decrypted_symbol = chr((ord(symbol) - shift_start - shift) % 26 + shift_start)
-                plaintext += decrypted_symbol
-            else: plaintext += symbol
+        if symbol.isalpha():
+            shift_start = ord("A") if symbol.isupper() else ord("a")
+            decrypted_symbol = chr((ord(symbol) - shift_start - shift) % 26 + shift_start)                
+            plaintext += decrypted_symbol
+        else: plaintext += symbol
     return plaintext
